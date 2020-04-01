@@ -1,4 +1,5 @@
 # MyTodo
+![CI/CD: Master](https://github.com/JarrydMartin/MyTodo/workflows/CI/CD:%20Master/badge.svg)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 

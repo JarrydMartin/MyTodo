@@ -1,0 +1,7 @@
+<p [ngClass]="setClasses()">
+    <mat-checkbox [(checked)]="todo.completed" (change)="onToggle()">  </mat-checkbox>
+    {{ todo.title }}
+    <button mat-icon-button (click)="onDelete()" >
+        <mat-icon>clear</mat-icon>
+    </button>
+</p>
