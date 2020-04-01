@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
 
 // npm install firebase @angular/fire --save
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { TodoItemComponent } from './Components/todo-item/todo-item.component';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatIconModule,

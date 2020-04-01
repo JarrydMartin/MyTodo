@@ -7,11 +7,26 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TodoService {
-  todosUrl: string = 'https://my-json-server.typicode.com/JarrydMartin/MyTodo/todos';
+  
+   httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  }
+
+  todosUrl: string = 'https://my-json-server.typicode.com/JarrydMartin/MyTodo/todos/';
 
   constructor(private http: HttpClient) {}
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.todosUrl);
+  }
+ 
+  setTodoCompleted(todo: Todo):Observable<any>{
+    return this.http.put(`${this.todosUrl}${todo.id}`, todo, this.httpOptions);
+  }
+
+  deleteTodo(todo: Todo){
+    this.http.delete(`${this.todosUrl}${todo.id}`)
   }
 }
