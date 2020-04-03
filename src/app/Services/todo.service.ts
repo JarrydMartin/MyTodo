@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AngularFirestore, AngularFirestoreCollection   } from '@angular/fire/firestore';
 import { Todo } from '../Models/Todo';
 import { Observable } from 'rxjs';
 
@@ -14,12 +15,22 @@ export class TodoService {
     })
   }
 
+  private todoCollection: AngularFirestoreCollection<Todo>;
+
   todosUrl: string = 'https://my-json-server.typicode.com/JarrydMartin/MyTodo/todos/';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient, 
+    private firestore:AngularFirestore) {
+      this.todoCollection = firestore.collection<Todo>('Todos')
+    }
 
-  getTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.todosUrl);
+  createTodo(todo: Todo){
+    this.todoCollection.add(todo);
+  }
+
+  getTodos():Observable<Todo[]> {
+    return this.todoCollection.valueChanges();
   }
  
   setTodoCompleted(todo: Todo):Observable<any>{

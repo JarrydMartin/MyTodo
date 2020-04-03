@@ -1,0 +1,12 @@
+<form>
+  <mat-form-field>
+    <mat-label>New Todo</mat-label>
+    <input
+      matInput
+      placeholder="Add a new todo.."
+      name="title"
+      [(ngModel)]="title"
+    />
+  </mat-form-field>
+  <button mat-button color="primary" type="submit" name="sumbit">Add</button>
+</form>
