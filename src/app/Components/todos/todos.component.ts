@@ -3,6 +3,7 @@ import { Todo } from "../../Models/Todo";
 import { TodoService } from "../../Services/todo.service";
 
 
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -15,11 +16,6 @@ export class TodosComponent implements OnInit {
   constructor(private todoService:TodoService) { }
 
   ngOnInit(): void {
-    this.todoService.getTodos().subscribe(todos => this.todos = todos);
-  }
-
-  deleteTodo(todo: Todo){
-    this.todos = this.todos.filter(t => t.id != todo.id);
-    this.todoService.deleteTodo(todo);
+    this.todos = this.todoService.getTodos();
   }
 }

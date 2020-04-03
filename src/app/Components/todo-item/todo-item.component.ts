@@ -12,7 +12,7 @@ export class TodoItemComponent implements OnInit {
   @Input()todo: Todo;
   @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
   
-  constructor(private todoService:TodoService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -28,10 +28,6 @@ export class TodoItemComponent implements OnInit {
   onToggle(){
     //UI side
     this.todo.completed = !this.todo.completed
-    //Server side
-    this.todoService.setTodoCompleted(this.todo).subscribe(todo => {
-      console.log(todo);
-    })
   }
 
   onDelete(){

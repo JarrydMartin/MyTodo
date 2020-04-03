@@ -1,43 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AngularFirestore, AngularFirestoreCollection   } from '@angular/fire/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 import { Todo } from '../Models/Todo';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
   
-   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  }
+  private mockTodos: Todo[];
 
-  private todoCollection: AngularFirestoreCollection<Todo>;
-
-  todosUrl: string = 'https://my-json-server.typicode.com/JarrydMartin/MyTodo/todos/';
-
-  constructor(
-    private http: HttpClient, 
-    private firestore:AngularFirestore) {
-      this.todoCollection = firestore.collection<Todo>('Todos')
+  constructor(private firestore:AngularFirestore) {
+      this.mockTodos = [
+        {
+          id: "1",
+          title: "first todo",
+          completed: false
+        },
+        {
+          id: "2",
+          title: "second todo",
+          completed: false
+        },
+        {
+          id: "3",
+          title: "third todo",
+          completed: false
+        }
+       ];
     }
 
-  createTodo(todo: Todo){
-    this.todoCollection.add(todo);
+  addTodo(todo: Todo){
+   console.log(`Firebase Add ${todo.id}`);
   }
 
-  getTodos():Observable<Todo[]> {
-    return this.todoCollection.valueChanges();
+  getTodos():Todo[] {
+    console.log('Firebase get todos');
+    return this.mockTodos;
+  }
+
+  updateTodos(todo: Todo) {
+    console.log(`Firebase Update ${todo.id}`);
   }
  
-  setTodoCompleted(todo: Todo):Observable<any>{
-    return this.http.put(`${this.todosUrl}${todo.id}`, todo, this.httpOptions);
-  }
-
   deleteTodo(todo: Todo){
-    this.http.delete(`${this.todosUrl}${todo.id}`)
+    console.log(`Firebase Add ${todo.id}`);
   }
 }
