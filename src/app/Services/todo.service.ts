@@ -44,6 +44,10 @@ export class TodoService {
   }
 
   updateTodos(todo: Todo) {
+    this.mockTodos.find(t => {
+      t.id === todo.id;
+      t = todo;
+    })
     console.log(`Firebase Update ${todo.id}`);
   }
  

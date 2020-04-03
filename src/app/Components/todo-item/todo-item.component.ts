@@ -11,6 +11,7 @@ export class TodoItemComponent implements OnInit {
 
   @Input()todo: Todo;
   @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
+  @Output() updateTodo: EventEmitter<Todo> = new EventEmitter();
   
   constructor() { }
 
@@ -27,7 +28,8 @@ export class TodoItemComponent implements OnInit {
   }
   onToggle(){
     //UI side
-    this.todo.completed = !this.todo.completed
+    this.todo.completed = !this.todo.completed;
+    this.updateTodo.emit(this.todo);
   }
 
   onDelete(){
