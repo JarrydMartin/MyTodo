@@ -48,6 +48,7 @@ export class TodoService {
   }
  
   deleteTodo(todo: Todo){
-    console.log(`Firebase Add ${todo.id}`);
+    this.mockTodos = this.mockTodos.filter(t => t.id !== todo.id);
+    console.log(`Firebase delete ${todo.id}`);
   }
 }
