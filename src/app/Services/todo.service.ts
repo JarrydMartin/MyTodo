@@ -8,6 +8,7 @@ import { Todo } from '../Models/Todo';
 export class TodoService {
   
   private mockTodos: Todo[];
+  private mockIdCounter: number;
 
   constructor(private firestore:AngularFirestore) {
       this.mockTodos = [
@@ -27,10 +28,14 @@ export class TodoService {
           completed: false
         }
        ];
+       this.mockIdCounter = this.mockTodos.length;
     }
 
   addTodo(todo: Todo){
-   console.log(`Firebase Add ${todo.id}`);
+    this.mockIdCounter ++;
+    todo.id = this.mockIdCounter.toString(); 
+    this.mockTodos.push(todo);
+    console.log(`Firebase Add todo ${todo.title}`);
   }
 
   getTodos():Todo[] {
