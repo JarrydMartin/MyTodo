@@ -1,43 +1,21 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 import { Todo } from '../Models/Todo';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
   
-  private mockTodos: Todo[];
-  private mockIdCounter: number;
 
   constructor(private firestore:AngularFirestore) {
     
-      this.mockTodos = [
-        {
-          id: "1",
-          title: "first todo",
-          completed: false
-        },
-        {
-          id: "2",
-          title: "second todo",
-          completed: false
-        },
-        {
-          id: "3",
-          title: "third todo",
-          completed: false
-        }
-       ];
-       this.mockIdCounter = this.mockTodos.length;
     }
 
   addTodo(todo: Todo){
-    this.mockIdCounter ++;
-    todo.id = this.mockIdCounter.toString(); 
-    this.mockTodos.push(todo);
     console.log(`Firebase Add todo ${todo.title}`);
+    delete todo.id
+    this.firestore.collection('Todos').add(todo);
   }
 
   getTodos() {
@@ -46,15 +24,14 @@ export class TodoService {
   }
 
   updateTodos(todo: Todo) {
-    this.mockTodos.find(t => {
-      t.id === todo.id;
-      t = todo;
-    })
+   const id = todo.id;
+   delete todo.id
+   this.firestore.doc('Todos/' + id).update(todo);
     console.log(`Firebase Update ${todo.id}`);
   }
  
   deleteTodo(todo: Todo){
-    this.mockTodos = this.mockTodos.filter(t => t.id !== todo.id);
     console.log(`Firebase delete ${todo.id}`);
+    this.firestore.doc('Todos/' + todo.id).delete();
   }
 }
