@@ -7,9 +7,7 @@ import { Todo } from '../Models/Todo';
 })
 export class TodoService {
   
-
-  constructor(private firestore:AngularFirestore) {
-    
+  constructor(private firestore:AngularFirestore) {  
     }
 
   addTodo(todo: Todo){
