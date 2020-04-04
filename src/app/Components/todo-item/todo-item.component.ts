@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Todo } from "../../Models/Todo";
 
-import { TodoService } from "../../Services/todo.service";
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',

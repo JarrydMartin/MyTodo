@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { Todo } from '../Models/Todo';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class TodoService {
   private mockIdCounter: number;
 
   constructor(private firestore:AngularFirestore) {
+    
       this.mockTodos = [
         {
           id: "1",
@@ -38,9 +40,9 @@ export class TodoService {
     console.log(`Firebase Add todo ${todo.title}`);
   }
 
-  getTodos():Todo[] {
+  getTodos() {
     console.log('Firebase get todos');
-    return this.mockTodos;
+    return this.firestore.collection('Todos').snapshotChanges();
   }
 
   updateTodos(todo: Todo) {
